@@ -30,7 +30,7 @@ we also use anguler which is a framework
 
 react is used to simplifyt he creation of complex ui application
 
-# react is what ?
+# what is react ?
 
 we know react is the open source javascript library ,react is used for what ,react is used for building user interface ,
 

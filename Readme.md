@@ -41,3 +41,10 @@ this is most imortent point we need react because react simplifies the creation 
 
 first see web page structure here we have main component if any component is updated or a new component is added the page will never reload or refreahed ok only the same page is updated every that is called sigle page application
 now if i go to the bowser to show you see for example if you search youtube and in youtube you see whatever i do on the page the whole page never reload becaquse youtube is the single page application above you cansee it never refresh only the component inside the youtube are loading but not the whole page , this is the single page application, now if i open some other application which is not a single page and have multiple pages
+
+# how to start and create a projext?
+
+in vs code in new terminal first write npx create-react-app <folder-name>
+after this go in that folder using : cd <folder-name>
+and run npm start
+start is a script in package.json file

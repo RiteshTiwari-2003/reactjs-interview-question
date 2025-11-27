@@ -48,3 +48,72 @@ in vs code in new terminal first write npx create-react-app <folder-name>
 after this go in that folder using : cd <folder-name>
 and run npm start
 start is a script in package.json file
+
+### what are hooks in react?
+hooks are spacial function in react that let functional components use state , lifecycle features and other react capabilities without writting a class.
+
+hooks are introduced in react 16.8 to replace many repetitive class component patterns 
+
+before hooks: only class component could use state and lifecycle 
+after hook : functional component can do everything 
+
+### useContext in react 
+useContext is a hook that allows you to access data from context without needing to pass props manually through every component called props drilling.
+iyt helps when you need to share data like:
+theme (light/dark mode)
+user info(logged in user)
+language 
+global setting 
+auth token 
+
+## interview definition 
+the usecontext hook lets you access values from react context directly inside functional component , without passing props through intermidiate component .
+
+### why use useContext?
+without context -> you pass props through 4 - 5 layer even if middle component dont need them .
+with context-> any component can get the value directly 
+
+## step by step example of udecontext 
+we need 3 steps :
+1. create a context 
+2. wrap your app with the provider 
+3. use useContext inside child component 
+
+step 1: create a context 
+import {createContext} from "react";
+export const ThemeContext=createContext();
+
+step 2: wrap with provider (usually in app.js):
+import React,{useState} from "react";
+import {ThemeContext} from "./ThemeContext";
+
+function App(){
+    const [theme,setTheme]=useState("light");
+    return(
+        <ThemeContext.Provider value={{theme,setTheme}}>
+        <Home/>
+        </ThemeContext.Provider>
+    );
+}
+export default App;
+
+value hold the data you want to share globally 
+any component inside provider can access the context 
+
+step 3: use useContext in a child component 
+import React,{useContext} from 'react";
+import {ThemeContext} from "./ThemeContext";
+function Home(){
+    const {theme,setTheme}=useContext(ThemeContext);
+    return(
+        <div style={{backgroundColor:theme==="light"?"#fff":"#333",
+        color:theme==="light"?"#000":"#fff",
+        padding:"20px",}}>
+        <h1> current Theme: {theme}</h1>
+        <button onClick={()=>setTheme(theme==="light"?"dark":"light")}>
+        Toggle team 
+        </button>
+        </div>
+    );
+}
+export default Home;

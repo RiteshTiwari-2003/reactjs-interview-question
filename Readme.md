@@ -73,7 +73,7 @@ the usecontext hook lets you access values from react context directly inside fu
 without context -> you pass props through 4 - 5 layer even if middle component dont need them .
 with context-> any component can get the value directly 
 
-## step by step example of udecontext 
+## step by step example of us-mecontext 
 we need 3 steps :
 1. create a context 
 2. wrap your app with the provider 
@@ -117,3 +117,67 @@ function Home(){
     );
 }
 export default Home;
+
+## constrolled component and uncontrolled component in react 
+what are controlled and uncontroleld component ?
+in react , forms input (like input>, <textarea>,<select>) can be handled in two ways:
+constrolled components: react control the value 
+uncontrolled components : DOM controls the value 
+
+##  1. controlled components :
+a controlled component is a form input whose value is controlled by react state.
+the input value always comes from state .
+every input change triggers setState/useState
+single source of truth ; react 
+
+example controlled components:
+import React,{useState} from 'react";
+function ControlledForm(){
+    const [name,setName]=useState("");
+    const handlechange=(e)=>{
+        setName(e.target.value);
+    };
+    return (
+        <div>
+        <h2>Controlled component</h2>
+        <input
+        type="text"
+        value={name}
+        onChange={handleChange}>/>
+        <p>value:{name}</p>
+        </div>
+    );
+}
+export default ControlledForm;
+
+## 2. uncontrolled components:
+an uncontrolled component is a form input whose value is handled by the DOM, not by the react.
+react does not track the value 
+you use refs to access the value 
+input manages its own state inside browser 
+
+example : uncontrolled components:
+import React,{useRef} from 'react";
+function UncontrolledForm(){
+    const inputRef=useRef(null);
+    const handleSubmit=()=>{
+        alert("value:"+inputRef.curent.value);
+    };
+    return (
+        <div>
+        <h2>Uncontrolled component</h2>
+        <input type="text"
+        ref={inputRef}/>
+        <button onclick={handleSubmit}>Show Value,?button>
+        </div>
+
+    );
+}
+export default UncontrolledForm;
+
+### what is context api in react ?
+context api is a built in react feature that lets you share values across the component tree without passing props through every intermidiate level (avoid props drilling) typical uses : theme , auth / user info , locale , app setting , etc.
+
+Quick summary:
+
+context provides a way to pass data through the component tree without manually passing props at every level , use React.createContext() to create a context , wrap parts of the tree with <Provider >

@@ -180,4 +180,48 @@ context api is a built in react feature that lets you share values across the co
 
 Quick summary:
 
-context provides a way to pass data through the component tree without manually passing props at every level , use React.createContext() to create a context , wrap parts of the tree with <Provider >
+context provides a way to pass data through the component tree without manually passing props at every level , use React.createContext() to create a context , wrap parts of the tree with <Provider value={...}> and consume with useContext() or Context.Consumer
+
+### minimal example (single file, functional , recommended pattern )
+import React,{createContext,useState,useContext} from "react";
+import {createRoot} from "react-dom/client";
+//1: create context
+const ThemeContext=createContext();
+//2: provide component
+function ThemeProvider({children}){
+    const [theme,setTheme]=useState("light");
+    const toggle=()=>settheme(t=>(t==="light"?"dark":"light"));
+    //useMemo could be used here if value is expensive or contains function 
+    const value={theme,toggle};
+    return(
+        <ThemeContext.Provider value={value}>
+        {children}
+        </ThemeContext.Provider>
+    );
+}
+//3; consume via useContext
+function themeBox(){
+    const {theme}=useContext(ThemeContext);
+    const style={
+        padding:"20px",
+        borderRadius:"8px",
+        background:theme==="light"?"#fff":"#222",
+        color:theme==="light"?"#000":"#fff",
+        textAlign:"center",
+    };
+    return <div style={style}>Current time:{theme}</div>;
+}
+function ThemeToggle(){
+    const {toggle}=useContext(ThemeContext);
+    return <button onClick={toggle}>Toggle theme</button>;
+}
+function App(){
+    return (
+        <ThemeProvider>
+        <h1>Context API Exampe</h1>
+        <ThemeBox/>
+        <ThemeToggle/>
+        </ThemeProvider>
+    );
+}
+createRoot(document.getElementById("root")).render(<App/>);

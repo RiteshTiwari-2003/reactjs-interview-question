@@ -225,3 +225,88 @@ function App(){
     );
 }
 createRoot(document.getElementById("root")).render(<App/>);
+
+## useReducer in react 
+useReducer is a react hook used to manage complex state logic 
+it is an alternative to useState, espacially when :
+state updates depend on the previous state ,
+you have multiplle related state variable 
+or you want redux style state management at com-onent level 
+
+is work using :
+1. state -> the current state 
+2. dispatch (action): function used to update state 
+3. reducer(state,action): pure function that returns the new state 
+
+basic syntex :
+const [state,dispatch]=useReducer(reducer,initialState);
+
+simple example :
+import React,{useReducer} from "react";
+function reducer(state,action){
+    switch(action.type){
+        case "increment":
+            return {count: state.count +1}
+        case "decrement":
+         return {count:state.count-1};
+        default:
+            return state;
+    }
+}
+export default function Counter(){
+    const [state,dispatch]=useReducer(reducer,{count:0});
+    return(
+        <div>
+        <p>Count: {state.count}</p>
+        <button onClick={()=>dispatch({type:'increment'})}>+</button>
+        <button onClick={()=>dispatch({type:'decrement'})}>-</button>
+        </div>
+    );
+}
+
+## why use useReducer instead of useState
+when satuation is simple use useState
+when satuation is complex state(object , nested ) then use usereducer 
+and when satuation is multipe state updates in one action then use usereducer 
+and when satuation is predictable state transition (redux like) then use useReducer 
+when updates depend on previous state both (but usereducer is cleaner)
+
+### example managing a form using useReducer 
+using useState for forms get messy , useReducer keeps it clean 
+
+const initialState={
+    name:"",
+    email:"",
+    age:""
+};
+
+function reducer(state,action){
+    return{
+        ...state,
+        [action.field]:action.value
+    };
+}
+
+export  default function Form(){
+    const [state,dispatch]=useReducer(reducer,initialState);
+    return(
+        <div>
+        <input
+        name="name"
+        value={state.name}
+        onChnage={(e)=>dispatch({field:e.target.name,value:e.target.value})}/>
+        <input 
+        name="email"
+        value={state.email}
+        onChnage={(e)=>{
+            dispatch({field:e.target.name,value;e.target.value})
+        }}/>
+
+        <input 
+        name="age"
+        value={state.age}
+        onChange={(e)=>dispatch({field:e.target.name,value:e.target.value})}/>
+        
+    )
+}
+

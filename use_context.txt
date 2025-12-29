@@ -1,0 +1,25 @@
+### use context in react?
+
+usecontext is a hook that allow you to access data from a context without needing to pass props manually through every component(called props drilling)
+
+it helps when you need to share data like :
+theme(light/dark mode)
+user info(logged in user)
+language 
+global setting 
+auth token 
+
+the useffect hooks let you access value sfrom react context directly inside functional component , without passing props through intermidiate components.
+
+### why use useContext?
+without context-> you pass props through 4 5 layer even if middle component dont need them 
+
+with context -> any component can get the value directly 
+
+step by step example of useContext:
+we need 3 steps:
+create a context 
+wrap your app with provider 
+use useContext inside child component 
+
+step1 : create a context:

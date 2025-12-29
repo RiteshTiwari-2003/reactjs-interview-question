@@ -23,3 +23,38 @@ wrap your app with provider
 use useContext inside child component 
 
 step1 : create a context:
+import {createContext} from 'react";
+export const ThemeContext=createContext();
+
+step 2: wrap with provider (usually in App.js):
+import React,{useState} from "react";
+import {ThemeContext} from "./ThemeContext";
+function App(){
+    const [theme,setTheme]=useState("light");
+    return(
+        <ThemeContext.Provider value={{theme,setTheme}}>
+        <Home/>
+        </ThemeContext.Provider>
+    );
+}
+export default App;
+
+step 3: use useContext in child component :
+import React,{useContext} from "react";
+import {ThemeContext} from "./ThemeContext";
+function Home(){
+    const {theme,setTheme}=useContext(ThemeContext);
+    return(
+        <div style={{
+        backgroundColor: theme === "light" ? "#fff" : "#333",
+        color: theme === "light" ? "#000" : "#fff",
+        padding: "20px",
+      }}><h1> Current time : {theme}</h1>
+      <button onClick={()=>setTheme(theme==="light"?"dark":"light")}>
+      Togglr theme</button>
+      </div>
+    );
+}
+export default Home;
+
+

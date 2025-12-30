@@ -58,3 +58,20 @@ function Home(){
 export default Home;
 
 
+## make counter function using react 
+import React,{useState} from "react";
+
+const handleInput=()=>{
+    setCount(count+1);
+}
+const App(){
+    const [count,setCount]=useState(0);
+    return(
+        <div>
+        <h1>this is counter:{count}</h1>
+        <button onClick={()=>handleInput}>+1</button>
+        </div>
+    )
+
+}
+expoft default App;
